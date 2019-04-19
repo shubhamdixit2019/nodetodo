@@ -1,17 +1,19 @@
 'use strict';
-module.exports = (sequelize, DataTypes) => {
+let Sequelize = require('sequelize');
+let sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/todos');
+
   const todoitems = sequelize.define('todoitems', {
-    name: DataTypes.STRING,
-    listid: DataTypes.INTEGER,
-    todocompeted: DataTypes.BOOLEAN,
-    completedat: DataTypes.DATE,
-    createdAt : DataTypes.DATE,
-    updatedAt : DataTypes.DATE
+    name: Sequelize.STRING,
+    listid: Sequelize.INTEGER,
+    todocompeted: Sequelize.BOOLEAN,
+    completedat: Sequelize.DATE,
+    createdAt : Sequelize.DATE,
+    updatedAt : Sequelize.DATE
   }, {
-    underscored: true
+    
   });
   todoitems.associate = function(models) {
     // associations can be defined here
   };
-  return todoitems;
-};
+  
+module.exports = todoitems;

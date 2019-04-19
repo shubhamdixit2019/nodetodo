@@ -13,6 +13,6 @@ const sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/tod
 todolists.sync().then(() => {
     // Now the `users` table in the database corresponds to the model definition
     return todolists.create({
-        name: "DEF"
+        name: "DGF"
     });
   });

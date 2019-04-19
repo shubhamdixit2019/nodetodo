@@ -1,8 +1,13 @@
-var express = require('express');
-const mainrouter = require('./routes/mainrouter')
-let mainController = require('./controllers/main');
-var app = express();
+let express = require('express');
+let todolistsRouter = require('./routes/todolistsrouter')
+let todoItemsRouter = require('./routes/todoitemsrouter')
+let app = express();
 
-app.use('/create', mainController.create);
+//app.use('/create', todolistController.create);
 
-app.listen(3000);
+app.use('/todoitems',todoItemsRouter);
+app.use('/todolists',todolistsRouter)
+
+app.listen(3000,function(req,res){
+    console.log("Listening");
+});
