@@ -11,13 +11,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 
-app.get('/signup', function(req, res) {
+app.get('/signup', function (req, res) {
     res.render('auth/signup');
 });
-app.get('/login', function(req, res) {
+app.get('/login', function (req, res) {
     res.render('auth/login');
 });
-app.get('/logout', function(req, res) {
+app.get('/logout', function (req, res) {
     res.render('auth/logout');
 });
 
@@ -27,4 +27,4 @@ app.use('/user', userRouter);
 
 mongoose.connect(() => {
     app.listen(5000, () => console.log('app listening on port 5000!'));
-  });
+});

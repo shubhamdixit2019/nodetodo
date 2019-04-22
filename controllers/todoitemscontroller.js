@@ -1,59 +1,70 @@
-const todolists = require('../models/todoitems');
+const todoitems = require('../models/todoitems');
 const sequelize = require('../Sequelize');
 
 module.exports = {
   //THIS WILL CREATE THE TODOS
-  create: async function (req, res) {
+  createItems: async function (req, res) {
     try {
       await sequelize.sync()
-      await todolists.create({
+      await todoitems.create({
         name: req.params.name,
-        listid: req.params.listid,
-        todocompeted: 0
+        listId: req.params.listid,
+        todoCompleted: false
       });
-      res.send("Tables Created");
+      res.send("Entry Created");
     } catch (err) {
       console.log(err)
     }
   },
-  fetchData: async function (req, res) {
+
+  //THIS WILL FETCH ALL TABLES
+  displayAll: async function (req, res) {
     try {
       await sequelize.sync()
-      await todolists.findAll({
+      await todoitems.findAll({
         raw: true
       }).then(data => {
-        console.log(data);
+        res.json(data);
       })
-      res.send("Tables fetched");
     } catch (err) {
       console.log(err)
     }
   },
-  findbyid: async function (req, res) {
-    try {
-      await sequelize.sync()
-      await todolists.findByPk(req.params.id).then(data => {
-        console.log(data.toJSON());
-      })
-      res.send("Element Found");
-    } catch (err) {
-      console.log(err)
-    }
-  },
-  findbylistid: async function (req, res) {
+
+  //THIS WILL FETCH BY LISID
+  findByListId: async function (req, res) {
     try {
       console.log(req.params.listid);
       await sequelize.sync()
-      await todolists.findOne({
+      await todoitems.findOne({
         where: {
-          listid: req.params.listid
+          listId: req.params.listid,
+          name: req.params.name
         },
       }).then(data => {
-        console.log(data, req.params.listid);
+        // console.log(data, req.params.listid);
+        res.json(data);
       })
-      res.send("RECORD FOUND", listid);
+      res.send("RECORD FOUND");
     } catch (err) {
       console.log(err)
     }
-  }
+  },
+
+  //THIS WILL DELETE THE PARTICULAR DATA
+  deleteItems: async function (req, res) {
+    try {
+      await sequelize.sync()
+      await todoitems.destroy({
+        where: {
+          name: req.params.name,
+          listId: req.params.listid
+        },
+        truncate: false /* this will ignore where and truncate the table instead */
+      });
+      res.send("Items Entry Deleted");
+    } catch (err) {
+      console.log(err)
+    }
+  },
 }

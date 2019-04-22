@@ -11,13 +11,13 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      listid: {
+      listId: {
         type: Sequelize.INTEGER
       },
-      todocompeted: {
+      todoCompleted: {
         type: Sequelize.BOOLEAN
       },
-      completedat: {
+      completedAt: {
         type: Sequelize.DATE
       },
       createdAt: {

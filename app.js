@@ -5,9 +5,9 @@ let app = express();
 
 //app.use('/create', todolistController.create);
 
-app.use('/todoitems',todoItemsRouter);
-app.use('/todolists',todolistsRouter)
+app.use('/todo-items', todoItemsRouter);
+app.use('/todo-lists', todolistsRouter)
 
-app.listen(3000,function(req,res){
+app.listen(3000, function (req, res) {
     console.log("Listening");
 });

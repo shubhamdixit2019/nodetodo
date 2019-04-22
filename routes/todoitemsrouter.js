@@ -2,9 +2,9 @@ let express = require('express');
 let todoItemsRouter = express.Router();
 let todoItemsController = require('../controllers/todoitemscontroller');
 
-todoItemsRouter.get('/create/name/:name/listid/:listid/', todoItemsController.create);
-todoItemsRouter.get('/', todoItemsController.fetchData)
-todoItemsRouter.get('/:id', todoItemsController.findbyid) 
-todoItemsRouter.get('/listid/:listid', todoItemsController.findbylistid)
+todoItemsRouter.post('/list-id/:listid/name/:name/', todoItemsController.createItems);
+todoItemsRouter.get('/', todoItemsController.displayAll)
+todoItemsRouter.get('/list-id/:listid/name/:name/', todoItemsController.findByListId);
+todoItemsRouter.delete('/list-id/:listid/name/:name/', todoItemsController.deleteItems);
 
 module.exports = todoItemsRouter;
