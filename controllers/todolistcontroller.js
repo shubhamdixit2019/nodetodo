@@ -20,8 +20,7 @@ module.exports = {
         raw: true
       }).then(data => {
         res.json(data);
-      })
-      //res.send("Tables fetched");
+      })      
     } catch (err) {
       console.log(err)
     }
@@ -34,11 +33,10 @@ module.exports = {
         where: {
           name: req.params.name
         },
-      }).then(data => {
-        // console.log(data, req.params.listid);
+      }).then(data => {        
         res.json(data);
       })
-      res.send("RECORD FOUND", req.params.listid);
+      res.send("RECORD FOUND");
     } catch (err) {
       console.log(err)
     }

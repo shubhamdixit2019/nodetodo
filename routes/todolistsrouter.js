@@ -1,6 +1,6 @@
 let express = require('express');
 let todolistsRouter = express.Router();
-let todolistController = require('../controllers/todolistontroller');
+let todolistController = require('../controllers/todolistcontroller');
 
 todolistsRouter.post('/name/:name', todolistController.createList);   //CREATE LISTS
 todolistsRouter.get('/', todolistController.displayAll);
