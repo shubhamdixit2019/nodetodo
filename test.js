@@ -1,19 +1,28 @@
-//const sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/todos');
-//THIS IS A SAMPLE TO TAKE REFERNECE
-var Sequelize = require('sequelize');
+'use strict'
 
-const sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/todos');
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = express()
 
-const todolists = sequelize.define('todolists', {
-  name: Sequelize.STRING
-}, {});
-todolists.associate = function (models) {
-  // associations can be defined here
-};
+// Tell express to use the body-parser middleware and to not parse extended bodies
+app.use(bodyParser.urlencoded({ extended: false }))
 
-todolists.sync().then(() => {
-  // Now the `users` table in the database corresponds to the model definition
-  return todolists.create({
-    name: "DGF"
-  });
-});
+app.get('/sms', function (req, res) {
+  res.send('2323')
+  // res.send(html);
+})
+
+// Route that receives a POST request to /sms
+app.post('/sms', function (req, res) {
+  res.set('Content-Type', 'text/plain')
+  res.send(`You sent: ${req.body.id} to Express`)
+})
+
+// Tell our app to listen on port 3000
+app.listen(3000, function (err) {
+  if (err) {
+    throw err
+  }
+
+  console.log('Server started on port 3000')
+})

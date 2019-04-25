@@ -1,7 +1,6 @@
-'use strict';
-const todolists = require('./todolists');
-let Sequelize = require('sequelize');
-let sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/todos');
+'use strict'
+const Sequelize = require('sequelize')
+let sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/todos')
 
 const todoitems = sequelize.define('todoitems', {
   name: Sequelize.STRING,
@@ -12,9 +11,9 @@ const todoitems = sequelize.define('todoitems', {
   updatedAt: Sequelize.DATE
 }, {
 
-  });
+})
 todoitems.associate = function (models) {
 
-};
+}
 
-module.exports = todoitems;
+module.exports = todoitems

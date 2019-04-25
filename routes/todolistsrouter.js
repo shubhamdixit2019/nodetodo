@@ -1,10 +1,20 @@
-let express = require('express');
-let todolistsRouter = express.Router();
-let todolistController = require('../controllers/todolistcontroller');
+let express = require('express')
+let todolistsRouter = express.Router()
+let todolistController = require('../controllers/todolistcontroller')
+let todoItemsController = require('../controllers/todoitemscontroller')
 
-todolistsRouter.post('/name/:name', todolistController.createList);   //CREATE LISTS
-todolistsRouter.get('/', todolistController.displayAll);
-todolistsRouter.get('/name/:name', todolistController.findByName);
-todolistsRouter.delete('/name/:name', todolistController.deleteList);
+// todo-lists
+todolistsRouter.get('/', todolistController.index)
+todolistsRouter.post('/', todolistController.create)
+todolistsRouter.get('/:id', todolistController.show)
+todolistsRouter.delete('/:id', todolistController.destroy)
+todolistsRouter.put('/:id', todolistController.update)
 
-module.exports = todolistsRouter;
+// todo-items
+todolistsRouter.get('/:id/todo-items/', todoItemsController.index)
+todolistsRouter.post('/:id/todo-items/', todoItemsController.create)
+todolistsRouter.get('/:id/todo-items/:itemid', todoItemsController.show)
+todolistsRouter.delete('/:id/todo-items/:itemid', todoItemsController.destroy)
+todolistsRouter.put('/:id/todo-items/:itemid', todoItemsController.update)
+
+module.exports = todolistsRouter

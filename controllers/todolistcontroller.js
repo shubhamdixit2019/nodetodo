@@ -1,58 +1,74 @@
-const todolists = require('../models/todolists');
-const sequelize = require('../Sequelize');
+const todolists = require('../models/todolists')
+const sequelize = require('../Sequelize')
 
 module.exports = {
-  createList: async function (req, res) {
+  create: async function (req, res) {
     try {
       await sequelize.sync()
       await todolists.create({
-        name: req.params.name
-      });
-      res.send("List Entry Created");
+        name: req.body.name // will be passed from the frontend app
+      })
+      res.send('Todo-Lists Entry Created')
     } catch (err) {
       console.log(err)
     }
   },
-  displayAll: async function (req, res) {
+  index: async function (req, res) {
     try {
       await sequelize.sync()
       await todolists.findAll({
         raw: true
       }).then(data => {
-        res.json(data);
-      })      
+        res.json(data)
+      })
     } catch (err) {
       console.log(err)
     }
   },
-  findByName: async function (req, res) {
+  show: async function (req, res) {
     try {
-      console.log(req.params.listid);
+      console.log(req.params.id)
       await sequelize.sync()
       await todolists.findOne({
         where: {
-          name: req.params.name
-        },
-      }).then(data => {        
-        res.json(data);
+          id: req.params.id
+        }
+      }).then(data => {
+        res.json(data)
       })
-      res.send("RECORD FOUND");
     } catch (err) {
       console.log(err)
     }
   },
-  deleteList: async function (req, res) {
+  destroy: async function (req, res) {
     try {
       await sequelize.sync()
       await todolists.destroy({
         where: {
-          name: req.params.name
+          id: req.params.id
         },
-        truncate: true /* this will ignore where and truncate the table instead */
-      });
-      res.send("List Entry Deleted");
+        truncate: false
+      })
+      res.send('List Successfully Deleted')
     } catch (err) {
       console.log(err)
     }
   },
+  update: async function (req, res) {
+    try {
+      await sequelize.sync()
+      await todolists.update({
+        name: req.body.name
+      }, {
+        where: { id: req.params.id, listId: req.params.id },
+        returning: true,
+        plain: true
+      })
+        .then(function (result) {
+          console.log(result)
+        })
+      res.send('Record Updated')
+    } catch (err) {
+    }
+  }
 }
