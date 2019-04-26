@@ -1,74 +1,68 @@
 const todolists = require('../models/todolists')
-const sequelize = require('../Sequelize')
+// const sequelize = require('../Sequelize')
+const errorMessage = require('../constants')
 
 module.exports = {
   create: async function (req, res) {
     try {
-      await sequelize.sync()
       await todolists.create({
-        name: req.body.name // will be passed from the frontend app
+        name: req.body.name
       })
       res.send('Todo-Lists Entry Created')
     } catch (err) {
-      console.log(err)
+      console.log(errorMessage + err)
     }
   },
+
   index: async function (req, res) {
     try {
-      await sequelize.sync()
-      await todolists.findAll({
-        raw: true
-      }).then(data => {
-        res.json(data)
-      })
+      const data = await todolists.findAll({})
+      res.json(data)
     } catch (err) {
-      console.log(err)
+      console.log(errorMessage + err)
     }
   },
+
   show: async function (req, res) {
     try {
-      console.log(req.params.id)
-      await sequelize.sync()
-      await todolists.findOne({
+      const data = await todolists.findAll({
         where: {
-          id: req.params.id
+          id: req.params.listId
         }
-      }).then(data => {
-        res.json(data)
       })
+      res.json(data)
     } catch (err) {
-      console.log(err)
+      console.log(errorMessage + err)
     }
   },
+
   destroy: async function (req, res) {
     try {
-      await sequelize.sync()
       await todolists.destroy({
         where: {
-          id: req.params.id
+          id: req.params.listId
         },
         truncate: false
       })
       res.send('List Successfully Deleted')
     } catch (err) {
-      console.log(err)
+      console.log(errorMessage + err)
     }
   },
+
   update: async function (req, res) {
     try {
-      await sequelize.sync()
       await todolists.update({
         name: req.body.name
-      }, {
-        where: { id: req.params.id, listId: req.params.id },
+      },
+      {
+        where: { id: req.params.listId },
         returning: true,
         plain: true
       })
-        .then(function (result) {
-          console.log(result)
-        })
       res.send('Record Updated')
     } catch (err) {
+      console.log(errorMessage + err)
     }
   }
 }
