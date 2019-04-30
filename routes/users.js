@@ -1,9 +1,10 @@
 let express = require('express')
-let router = express.Router()
+let userListRouter = express.Router()
+let userListController = require('../controllers/userListController')
 
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.send('respond with a resource')
-})
+userListRouter.get('/user-list', userListController.index);
+userListRouter.delete('/user-list', userListController.destroy);
+userListRouter.post('/create-user',userListController.create);
 
-module.exports = router
+
+module.exports = userListRouter;
