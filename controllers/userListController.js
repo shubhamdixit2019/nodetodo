@@ -1,11 +1,11 @@
-const users = require('../models/users');
-const sequelize = require('../Sequelize');
+const users = require('../models/users')
+const sequelize = require('../Sequelize')
 
 module.exports = {
-  index : async function (req, res) {
+  index: async function (req, res) {
     try {
       const data = await sequelize.query(
-        'SELECT name FROM users',
+        'SELECT name,id FROM users',
         { type: sequelize.QueryTypes.SELECT })
       res.json(data)
     } catch (err) {
@@ -16,19 +16,19 @@ module.exports = {
     try {
       await users.create({
         name: req.body.name,
-        password : "thjghu"
+        password: 'thjghu'
       })
       res.send('Todo-Lists Entry Created')
     } catch (err) {
-      console.log( err)
+      console.log(err)
     }
   },
   destroy: async function (req, res) {
     try {
-      console.log("=============>",req.body.name);
+      console.log('=============>', req.body.id)
       await users.destroy({
         where: {
-          name : req.body.name
+          id: req.body.id
         },
         truncate: false
       })
@@ -36,5 +36,5 @@ module.exports = {
     } catch (err) {
       console.log(err)
     }
-  },
+  }
 }

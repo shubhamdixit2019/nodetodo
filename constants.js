@@ -1,2 +1,2 @@
 const errorMessage = 'Following Error Encountered : '
-module.exports
+module.exports = errorMessage

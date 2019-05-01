@@ -1,5 +1,4 @@
 const todoitems = require('../models/todoitems')
-const sequelize = require('../Sequelize')
 const errorMessage = require('../constants')
 
 module.exports = {
