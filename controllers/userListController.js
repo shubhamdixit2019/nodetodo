@@ -23,6 +23,21 @@ module.exports = {
       console.log(err)
     }
   },
+  update: async function (req, res) {
+    try {
+      await users.update({
+        name: req.body.name,        
+      },
+      {
+        where: { id: req.body.id },
+        returning: true,
+        plain: true
+      })
+      res.send('Record Updated')
+    } catch (err) {
+      console.log(err)
+    }
+  },
   destroy: async function (req, res) {
     try {
       console.log('=============>', req.body.id)
