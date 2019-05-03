@@ -1,5 +1,4 @@
 const passport = require('passport')
-// const BasicStrategy = require('passport-http').BasicStrategy;
 const localStrategy = require('passport-local').Strategy
 const superAdmin = require('../config/configuration')
 
